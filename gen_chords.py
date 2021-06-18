@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from table_printer import TablePrinter
 from chord_generator import ChordGenerator, next_note_cof, next_note_rand
 from random import randint, seed
 from datetime import datetime
@@ -73,12 +74,6 @@ if __name__ == "__main__":
     for i in range(0, args.num_chords):
         chords.append(chord_gen.get_chord())
 
-    # Pretty print the chords
-    # TODO [jturner 2021-06-17]: use a real table writer for this
-    s = ""
-    for i, chord in enumerate(chords):
-        if i % 4 == 0 and s != "":
-            print("|" + s)
-            s = ""
-        s += " {:<8} |".format(chord)
-    print("|" + s)
+    printer = TablePrinter(chords)
+    content = printer.print()
+    print(content)
