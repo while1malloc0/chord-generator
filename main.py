@@ -7,13 +7,6 @@ from datetime import datetime
 import argparse
 
 
-usage = """
-Usage: random_chords.py NUM_CHORDS
-
-Args:
-  NUM_CHORDS - How many chords to generate
-"""
-
 parser = argparse.ArgumentParser(
     description="Generate random chords for practice purposes"
 )
