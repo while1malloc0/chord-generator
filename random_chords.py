@@ -1,12 +1,29 @@
 #!/usr/bin/env python
 
 from random import randint, seed
-from sys import argv
+from sys import argv, exit
 from datetime import datetime
-import os
 
 
-notes = ["A", "B", "C", "D", "E", "F", "G"]
+notes = [
+    "Ab",
+    "A",
+    "A#",
+    "Bb",
+    "B",
+    "C",
+    "C#",
+    "Db",
+    "D",
+    "D#",
+    "Eb",
+    "E",
+    "F",
+    "F#",
+    "Gb",
+    "G",
+    "G#",
+]
 
 
 qualities_with_extensions = {
@@ -26,9 +43,9 @@ Args:
 
 
 if __name__ == "__main__":
-    if len(argv) < 1:
+    if len(argv) <= 1:
         print(usage)
-        os.exit(0)
+        exit(0)
 
     seed(datetime.now())
     num_chords = int(argv[1])
