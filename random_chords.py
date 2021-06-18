@@ -70,3 +70,4 @@ if __name__ == "__main__":
             print(s)
             s = ""
         s += " {:<8} |".format(chord)
+    print("|" + s)
