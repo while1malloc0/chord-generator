@@ -62,9 +62,6 @@ parser.add_argument(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    if len(argv) <= 1:
-        print(usage)
-        exit(0)
 
     seed(datetime.now())
 
