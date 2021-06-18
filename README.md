@@ -1,11 +1,18 @@
 # Random Chord Generator
 
-A small utility to generate random chords for exercises
+A small utility to generate chords for exercises
 
 ## Usage
 
-random_chords.py NUM_CHORDS
+```
+usage: gen_chords.py [-h] [--order {random,cof}] N
 
-Args:
-  
-- NUM_CHORDS - the number of chords to generate
+Generate random chords for practice purposes
+
+positional arguments:
+  N                     The number of chords to generate
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --order {random,cof}  The order in which to enumerate chords. One of random or cof (Circle of Fifths)
+```
