@@ -33,6 +33,19 @@ Args:
 """
 
 
+def next_note_cof():
+    """picks the next note in the circle of fifths"""
+    while True:
+        for i in range(0, len(notes)):
+            yield i
+
+
+def next_note_rand():
+    """picks the next note at random"""
+    while True:
+        yield randint(0, len(notes) - 1)
+
+
 parser = argparse.ArgumentParser(
     description="Generate random chords for practice purposes"
 )
@@ -61,32 +74,24 @@ parser.add_argument(
 )
 
 
-def next_note_cof():
-    while True:
-        for i in range(0, len(notes)):
-            yield i
-
-
-def next_note_rand():
-    while True:
-        yield randint(0, len(notes) - 1)
-
-
 if __name__ == "__main__":
     args = parser.parse_args()
 
     seed(datetime.now())
 
+    # get our iterator for picking the next note, default to random
     get_next_note_picker = next_note_rand
     if args.order == "cof":
         get_next_note_picker = next_note_cof
-
     next_note_picker = get_next_note_picker()
 
+    # get the chord qualities that we're allowed to choose from, default to all
     available_qualities = args.qualities
     if not available_qualities:
         available_qualities = ["min", "maj", "dim7", "7", "min7b5"]
 
+    # assemble a list of N chords, which are note + quality + extensions,
+    # e.g. A + min + 6/9 = Amin6/9
     chords = []
     for i in range(0, args.num_chords):
         which_quality = randint(0, len(available_qualities) - 1)
@@ -104,6 +109,7 @@ if __name__ == "__main__":
         chord = f"{note}{quality}{extension}"
         chords.append(chord)
 
+    # Pretty print the chords
     # TODO [jturner 2021-06-17]: use a real table writer for this
     s = ""
     for i, chord in enumerate(chords):
