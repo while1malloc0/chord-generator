@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 
-from hashlib import blake2b
 from random import randint, seed
-from sys import argv, exit
 from datetime import datetime
 import argparse
 
