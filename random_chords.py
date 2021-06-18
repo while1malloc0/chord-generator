@@ -1,30 +1,14 @@
 #!/usr/bin/env python
 
+from hashlib import blake2b
 from random import randint, seed
 from sys import argv, exit
 from datetime import datetime
 import argparse
 
 
-notes = [
-    "Ab",
-    "A",
-    "A#",
-    "Bb",
-    "B",
-    "C",
-    "C#",
-    "Db",
-    "D",
-    "D#",
-    "Eb",
-    "E",
-    "F",
-    "F#",
-    "Gb",
-    "G",
-    "G#",
-]
+# Lay these out in the circle of fifths so that that logic is easier
+notes = ["C", "F", "Bb", "Eb", "Ab", "Db", "F#", "B", "E", "A", "D", "G"]
 
 
 # TODO [jturner 2021-06-17]: this approach is kind of naive, but it works. For
