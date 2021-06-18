@@ -47,11 +47,6 @@ parser.add_argument("--no-extensions", type=bool, nargs="?", default=argparse.SU
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    # get our iterator for picking the next note, default to random
-    next_note_picker = next_note_rand
-    if args.order == "cof":
-        next_note_picker = next_note_cof
-
     # get the chord qualities that we're allowed to choose from, default to all
     available_qualities = args.qualities
     if not available_qualities:
@@ -62,9 +57,7 @@ if __name__ == "__main__":
     # are allowed, as with qualities
     extensions_allowed = not hasattr(args, "no_extensions")
 
-    chord_gen = ChordGenerator(
-        next_note_picker, extensions_allowed, available_qualities
-    )
+    chord_gen = ChordGenerator(args.order, extensions_allowed, available_qualities)
 
     # assemble a list of N chords, which are note + quality + extensions,
     # e.g. A + min + 6/9 = Amin6/9

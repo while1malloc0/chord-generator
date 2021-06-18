@@ -33,9 +33,13 @@ def next_note_rand():
 
 
 class ChordGenerator:
-    def __init__(self, note_picker, allow_extensions, qualities):
+    def __init__(self, order, allow_extensions, qualities):
         seed(datetime.now())
-        self.note_picker = note_picker()
+        if order == "random":
+            self.note_picker = next_note_rand()
+        elif order == "cof":
+            self.note_picker = next_note_cof()
+
         self.allow_extensions = allow_extensions
         self.qualities = qualities
 
