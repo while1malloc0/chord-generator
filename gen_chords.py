@@ -32,6 +32,7 @@ Args:
   NUM_CHORDS - How many chords to generate
 """
 
+
 parser = argparse.ArgumentParser(
     description="Generate random chords for practice purposes"
 )
@@ -43,11 +44,37 @@ parser.add_argument(
     help="The number of chords to generate",
 )
 
+# TODO [jturner 2021-06-17]: This should probably take an interval so that you
+# can do things like have chords that move in thirds
+parser.add_argument(
+    "--order",
+    default="random",
+    choices=["random", "cof"],
+    help="The order in which to enumerate chords. One of random or cof (Circle of Fifths)",
+)
+
+
+def next_note_cof():
+    while True:
+        for i in range(0, len(notes)):
+            yield i
+
+
+def next_note_rand():
+    while True:
+        yield randint(0, len(notes))
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
 
     seed(datetime.now())
+
+    next_note_func = next_note_rand
+    if args.order == "cof":
+        next_note_func = next_note_cof
+
+    next_note_iter = next_note_func()
 
     chords = []
     for i in range(0, args.num_chords):
@@ -58,7 +85,8 @@ if __name__ == "__main__":
         if possible_extensions:
             extension_index = randint(0, len(possible_extensions) - 1)
             extension = possible_extensions[extension_index]
-        note = notes[randint(0, len(notes) - 1)]
+        next_note_idx = next(next_note_iter)
+        note = notes[next_note_idx]
         chord = f"{note}{quality}{extension}"
         chords.append(chord)
 
