@@ -77,11 +77,11 @@ if __name__ == "__main__":
 
     seed(datetime.now())
 
-    next_note_func = next_note_rand
+    get_next_note_picker = next_note_rand
     if args.order == "cof":
-        next_note_func = next_note_cof
+        get_next_note_picker = next_note_cof
 
-    next_note_iter = next_note_func()
+    next_note_picker = get_next_note_picker()
 
     available_qualities = args.qualities
     if not available_qualities:
@@ -89,15 +89,18 @@ if __name__ == "__main__":
 
     chords = []
     for i in range(0, args.num_chords):
-        quality_index = randint(0, len(available_qualities) - 1)
-        quality = available_qualities[quality_index]
+        which_quality = randint(0, len(available_qualities) - 1)
+        quality = available_qualities[which_quality]
+
         possible_extensions = qualities_with_extensions[quality]
         extension = ""
         if possible_extensions:
-            extension_index = randint(0, len(possible_extensions) - 1)
-            extension = possible_extensions[extension_index]
-        next_note_idx = next(next_note_iter)
-        note = notes[next_note_idx]
+            which_extension = randint(0, len(possible_extensions) - 1)
+            extension = possible_extensions[which_extension]
+
+        which_note = next(next_note_picker)
+        note = notes[which_note]
+
         chord = f"{note}{quality}{extension}"
         chords.append(chord)
 
