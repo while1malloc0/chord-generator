@@ -73,6 +73,8 @@ parser.add_argument(
     nargs="+",
 )
 
+parser.add_argument("--no-extensions", type=bool, nargs="?", default=argparse.SUPPRESS)
+
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -90,6 +92,11 @@ if __name__ == "__main__":
     if not available_qualities:
         available_qualities = ["min", "maj", "dim7", "7", "min7b5"]
 
+    # set whether or not we're allowed to add extensions
+    # TODO [jturner 2021-06-17]: this should really be a list of extensions that
+    # are allowed, as with qualities
+    extensions_allowed = not hasattr(args, "no_extensions")
+
     # assemble a list of N chords, which are note + quality + extensions,
     # e.g. A + min + 6/9 = Amin6/9
     chords = []
@@ -97,11 +104,12 @@ if __name__ == "__main__":
         which_quality = randint(0, len(available_qualities) - 1)
         quality = available_qualities[which_quality]
 
-        possible_extensions = qualities_with_extensions[quality]
         extension = ""
-        if possible_extensions:
-            which_extension = randint(0, len(possible_extensions) - 1)
-            extension = possible_extensions[which_extension]
+        if extensions_allowed:
+            possible_extensions = qualities_with_extensions[quality]
+            if possible_extensions:
+                which_extension = randint(0, len(possible_extensions) - 1)
+                extension = possible_extensions[which_extension]
 
         which_note = next(next_note_picker)
         note = notes[which_note]
