@@ -53,6 +53,13 @@ parser.add_argument(
     help="The order in which to enumerate chords. One of random or cof (Circle of Fifths)",
 )
 
+parser.add_argument(
+    "--qualities",
+    dest="qualities",
+    action="extend",
+    nargs="+",
+)
+
 
 def next_note_cof():
     while True:
@@ -62,7 +69,7 @@ def next_note_cof():
 
 def next_note_rand():
     while True:
-        yield randint(0, len(notes))
+        yield randint(0, len(notes) - 1)
 
 
 if __name__ == "__main__":
@@ -76,10 +83,14 @@ if __name__ == "__main__":
 
     next_note_iter = next_note_func()
 
+    available_qualities = args.qualities
+    if not available_qualities:
+        available_qualities = ["min", "maj", "dim7", "7", "min7b5"]
+
     chords = []
     for i in range(0, args.num_chords):
-        quality_index = randint(0, len(qualities_with_extensions) - 1)
-        quality = list(qualities_with_extensions.keys())[quality_index]
+        quality_index = randint(0, len(available_qualities) - 1)
+        quality = available_qualities[quality_index]
         possible_extensions = qualities_with_extensions[quality]
         extension = ""
         if possible_extensions:
