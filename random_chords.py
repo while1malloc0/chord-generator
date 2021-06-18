@@ -3,6 +3,7 @@
 from random import randint, seed
 from sys import argv, exit
 from datetime import datetime
+import argparse
 
 
 notes = [
@@ -47,17 +48,28 @@ Args:
   NUM_CHORDS - How many chords to generate
 """
 
+parser = argparse.ArgumentParser(
+    description="Generate random chords for practice purposes"
+)
+
+parser.add_argument(
+    "num_chords",
+    metavar="N",
+    type=int,
+    help="The number of chords to generate",
+)
+
 
 if __name__ == "__main__":
+    args = parser.parse_args()
     if len(argv) <= 1:
         print(usage)
         exit(0)
 
     seed(datetime.now())
-    num_chords = int(argv[1])
 
     chords = []
-    for i in range(0, num_chords):
+    for i in range(0, args.num_chords):
         quality_index = randint(0, len(qualities_with_extensions) - 1)
         quality = list(qualities_with_extensions.keys())[quality_index]
         possible_extensions = qualities_with_extensions[quality]
@@ -69,11 +81,11 @@ if __name__ == "__main__":
         chord = f"{note}{quality}{extension}"
         chords.append(chord)
 
+    # TODO [jturner 2021-06-17]: use a real table writer for this
     s = ""
     for i, chord in enumerate(chords):
         if i % 4 == 0 and s != "":
-            s = "|" + s
-            print(s)
+            print("|" + s)
             s = ""
         s += " {:<8} |".format(chord)
     print("|" + s)
