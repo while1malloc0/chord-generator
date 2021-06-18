@@ -1,4 +1,5 @@
-from random import randint
+from random import randint, seed
+from datetime import datetime
 
 # Lay these out in the circle of fifths so that that logic is easier
 notes = ["C", "F", "Bb", "Eb", "Ab", "Db", "F#", "B", "E", "A", "D", "G"]
@@ -33,6 +34,7 @@ def next_note_rand():
 
 class ChordGenerator:
     def __init__(self, note_picker, allow_extensions, qualities):
+        seed(datetime.now())
         self.note_picker = note_picker()
         self.allow_extensions = allow_extensions
         self.qualities = qualities

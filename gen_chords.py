@@ -47,8 +47,6 @@ parser.add_argument("--no-extensions", type=bool, nargs="?", default=argparse.SU
 if __name__ == "__main__":
     args = parser.parse_args()
 
-    seed(datetime.now())
-
     # get our iterator for picking the next note, default to random
     next_note_picker = next_note_rand
     if args.order == "cof":
