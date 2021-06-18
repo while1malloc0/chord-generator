@@ -26,6 +26,12 @@ notes = [
 ]
 
 
+# TODO [jturner 2021-06-17]: this approach is kind of naive, but it works. For
+# more interesting combinations, this would use something like a Markov chain
+# so that you could express certain stacks of "second order" extensions (e.g. a
+# sus4 with a 9) without having to do annoying filtering for each new extension
+# (e.g. "we've added a sus4, so now 6, 9 and 13 are fine but the 'altered'
+# extension aren't anymore")
 qualities_with_extensions = {
     "maj": ["6", "7", "6/9", "7/9", "7#11", "7#5", "7/13"],
     "min": ["6", "7", "6/9", "7/9", "7/11"],
