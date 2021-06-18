@@ -6,15 +6,7 @@ from datetime import datetime
 import os
 
 
-notes = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G"
-]
+notes = ["A", "B", "C", "D", "E", "F", "G"]
 
 
 qualities_with_extensions = {
@@ -32,9 +24,8 @@ Args:
   NUM_CHORDS - How many chords to generate
 """
 
-    
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if len(argv) < 1:
         print(usage)
         os.exit(0)
@@ -44,14 +35,14 @@ if __name__ == '__main__':
 
     chords = []
     for i in range(0, num_chords):
-        quality_index = randint(0, len(qualities_with_extensions)-1)
+        quality_index = randint(0, len(qualities_with_extensions) - 1)
         quality = list(qualities_with_extensions.keys())[quality_index]
         possible_extensions = qualities_with_extensions[quality]
         extension = ""
         if possible_extensions:
-            extension_index = randint(0, len(possible_extensions)-1)
+            extension_index = randint(0, len(possible_extensions) - 1)
             extension = possible_extensions[extension_index]
-        note = notes[randint(0, len(notes)-1)]
+        note = notes[randint(0, len(notes) - 1)]
         chord = f"{note}{quality}{extension}"
         chords.append(chord)
 
@@ -62,4 +53,3 @@ if __name__ == '__main__':
             print(s)
             s = ""
         s += " {:<8} |".format(chord)
-        
