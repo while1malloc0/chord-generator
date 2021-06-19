@@ -5,14 +5,16 @@ A small utility to generate chords for exercises
 ## Usage
 
 ```
-usage: gen_chords.py [-h] [--order {random,cof}] N
+./main.py --help
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
 
-Generate random chords for practice purposes
+Options:
+  --help  Show this message and exit.
 
-positional arguments:
-  N                     The number of chords to generate
-
-optional arguments:
-  -h, --help            show this help message and exit
-  --order {random,cof}  The order in which to enumerate chords. One of random or cof (Circle of Fifths)
+Commands:
+  gen-chords
 ```
+
+### Commands
+
+`gen-chords` - Generates chords either at random or in the cycle of fourths
