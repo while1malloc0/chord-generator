@@ -15,11 +15,23 @@ def cli():
 # can do things like have chords that move in thirds
 @click.option(
     "--order",
+    help="The order in which to enumerate chords. One of random or cof (Circle of Fifths)",
+    show_choices=True,
     default="random",
-    # choices=["random", "cof"],
-    # help="The order in which to enumerate chords. One of random or cof (Circle of Fifths)",
+    type=click.Choice(
+        ["random", "cof"],
+    ),
 )
-@click.option("--qualities", type=list)
+@click.option(
+    "--qualities",
+    type=str,
+    callback=(
+        lambda _ctx, _param, value: [s.strip() for s in value.split(",")]
+        if value
+        else []
+    ),
+    help="A comma-separated list of chord qualities to include",
+)
 @click.option("--no-extensions", is_flag=True, default=False)
 @click.argument("N", nargs=1, type=int)
 def gen_chords(order, qualities, no_extensions, n):
