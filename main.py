@@ -45,13 +45,13 @@ def gen_chords(order, qualities, no_extensions, n):
     # are allowed, as with qualities
     extensions_allowed = not no_extensions
 
-    chord_gen = ChordGenerator(order, extensions_allowed, available_qualities)
+    chord_generator = ChordGenerator(order, extensions_allowed, available_qualities)
 
     # assemble a list of N chords, which are note + quality + extensions,
     # e.g. A + min + 6/9 = Amin6/9
     chords = []
     for i in range(0, n):
-        chords.append(chord_gen.get_chord())
+        chords.append(chord_generator.get_chord())
 
     printer = TablePrinter(chords)
     content = printer.print()
